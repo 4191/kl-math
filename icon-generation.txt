@@ -1,0 +1,7 @@
+Generation method: built-in image_gen tool; transparent background.
+Reference: user-supplied poetry app icon (little scholar in a graduation cap).
+Original output: public/icons/math-scholar-source.png
+Web exports: public/icons/math-scholar-{32,96,180,192,512}.png
+
+Final prompt:
+Use case: logo-brand. Asset type: square app icon for 小算纸, a children's math worksheet app in the same family as the provided poetry icon. Input image: style and character reference, not a target to reproduce unchanged. Create one polished high-resolution 1024x1024 illustrated icon: a cheerful cute young scholar with the reference's round face, black graduation cap with gold tassel, bold warm dark outlines and blue clothing. Replace poetry-specific brush/book detail with a simple cream math workbook and a pencil; workbook has only a large clear plus and equals symbol, no words. Include two simple floating math symbols plus and multiply in gold/green, keeping few details and a large face for legibility at small sizes. Same friendly hand-drawn cartoon style and warm educational feel as the reference. Rounded compact centered silhouette, character fills about 85% of canvas, balanced margins. Warm white circular badge behind character, subtle muted green accent matching #245c48. Outside the circular badge is truly transparent. No text, no brand name, no watermark, no mockup, no extra border, no photographic rendering.

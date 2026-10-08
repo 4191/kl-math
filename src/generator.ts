@@ -104,7 +104,8 @@ export function generateQuestions(config: GenerationConfig): Question[] {
 }
 
 export function getLayout(fontSize: number, columns: number, showHeader = false) {
-  const availableHeight = showHeader ? 225 : 260
+  // Questions end by 270 mm; reserve the bottom-right record block below them.
+  const availableHeight = showHeader ? 215 : 260
   const rowHeight = Math.max(9, fontSize * 0.264583 * 1.8)
   const rows = Math.floor(availableHeight / rowHeight)
   return { rowHeight, rows, availableHeight, perPage: rows * columns }

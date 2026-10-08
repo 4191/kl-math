@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties } from 'react'
-import { ArrowDownToLine, ArrowRight, Check, ChevronDown, FileText, Grid2X2, Leaf, Printer, RefreshCw, Settings2, Sparkles } from 'lucide-react'
+import { ArrowDownToLine, ArrowRight, Check, ChevronDown, FileText, Leaf, Printer, RefreshCw, Settings2, Sparkles } from 'lucide-react'
 import { generateQuestions, getLayout, operations, supportsChaining } from './generator'
 import type { GenerationConfig, Operation } from './generator'
 
@@ -81,7 +81,7 @@ export default function App() {
 
   return <>
     <header className="app-header no-print">
-      <a href="./" className="brand"><span className="brand-mark"><Grid2X2 size={22} /></span><span>小算纸<span className="brand-sub">让练习，刚刚好</span></span></a>
+      <a href="./" className="brand"><span className="brand-mark scholar-mark"><img src="/icons/math-scholar-192.png" alt="" width="48" height="48" /></span><span>小算纸<span className="brand-sub">让练习，刚刚好</span></span></a>
       <div className="header-note"><span className="status-dot" />无需登录 · 免费生成</div>
       <button className="button button-outline header-print" onClick={() => window.print()}><Printer size={16} />打印练习</button>
     </header>
@@ -124,9 +124,16 @@ export default function App() {
           <div className="preview-canvas" ref={preview}>
             {pages.map((page, pageIndex) => <div className="sheet-holder" key={pageIndex} style={{ width: `${210 * 96 / 25.4 * zoom}px`, height: `${297 * 96 / 25.4 * zoom}px` }}>
               <article className="sheet" style={{ '--preview-zoom': zoom } as CSSProperties}>
-                {showHeader ? <><div className="sheet-heading"><div className="sheet-kicker">MATH PRACTICE <span>每天练一点，进步看得见</span></div><h2>{title.trim() || '每日口算练习'}</h2><div className="student-details"><span>姓名：<i /></span><span>日期：<i /></span><span>用时：<i className="short" /> 分钟</span></div></div><div className="sheet-description"><span>{activeConfig.range} 以内{activeLabel}练习</span><span>{showAnswer ? '参考答案' : '认真计算，细心检查。'}</span></div></> : <div className="sheet-essentials student-details"><span>日期：<i /></span><span>用时：<i className="short" /> 分钟</span></div>}
+                {showHeader && <><div className="sheet-heading"><div className="sheet-kicker">MATH PRACTICE <span>每天练一点，进步看得见</span></div><h2>{title.trim() || '每日口算练习'}</h2><div className="student-details"><span>姓名：<i /></span></div></div><div className="sheet-description"><span>{activeConfig.range} 以内{activeLabel}练习</span><span>{showAnswer ? '参考答案' : '认真计算，细心检查。'}</span></div></>}
                 <div className="questions" style={{ gridTemplateColumns: `repeat(${columns}, minmax(0, 1fr))`, gridAutoRows: `${layout.rowHeight}mm` }}>{page.map((question, index) => <div className="question" key={`${pageIndex}-${index}`}>{showNumbers && <span className="question-number">{String(pageIndex * layout.perPage + index + 1).padStart(2, '0')}.</span>}<Equation {...question} showAnswer={showAnswer} fontSize={fontSize} /></div>)}</div>
-                <footer className={`sheet-footer ${showFooter ? '' : 'minimal-footer'}`}>{showFooter && <span>小算纸 <span className="footer-dot">·</span> 让练习，刚刚好</span>}<span>第 {pageIndex + 1} / {pages.length} 页</span></footer>
+                <footer className={`sheet-footer ${showFooter ? '' : 'minimal-footer'}`}>
+                  {showFooter && <span className="sheet-brand">小算纸 <span className="footer-dot">·</span> 让练习，刚刚好</span>}
+                  <div className="practice-record" aria-label="本页练习记录">
+                    <div className="record-row"><span>日期：<i className="record-date" /></span><span>用时：<i /> 分钟</span></div>
+                    <div className="record-row"><span>错误个数 / 总个数：<i /> / <strong>{page.length}</strong> 题</span><span>修正用时：<i /> 分钟</span></div>
+                    <div className="record-page">第 {pageIndex + 1} / {pages.length} 页</div>
+                  </div>
+                </footer>
               </article>
             </div>)}
           </div>

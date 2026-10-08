@@ -1,0 +1,13 @@
+{
+  "name": "小算纸 · 数学练习生成器",
+  "short_name": "小算纸",
+  "lang": "zh-CN",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#f6f7f3",
+  "theme_color": "#245c48",
+  "icons": [
+    { "src": "/icons/math-scholar-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/icons/math-scholar-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" }
+  ]
+}

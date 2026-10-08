@@ -37,7 +37,8 @@ test('page rows fit the reserved A4 question area at every setting', () => {
         assert(layout.rows * layout.rowHeight <= layout.availableHeight)
         assert.equal(layout.perPage, layout.rows * columns)
         assert(layout.perPage > 0)
-        assert(10 + (header ? 45 : 10) + layout.rows * layout.rowHeight <= 280)
+        // Reserve 3 mm before the record block, which starts at 273 mm.
+        assert(10 + (header ? 45 : 0) + layout.rows * layout.rowHeight <= 270)
       }
     }
   }
