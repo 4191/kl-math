@@ -11,6 +11,118 @@ select{width:100%;border:1px solid #dde2dc;border-radius:7px;padding:10px 8px;ba
 .sheet{padding:10mm}.sheet-essentials{height:10mm;justify-content:flex-end;align-items:flex-start;padding-top:1mm}.questions{column-gap:5mm}.question{padding-top:2mm}.sheet-footer{left:10mm;right:10mm;bottom:8mm}.minimal-footer{justify-content:flex-end;border-top:0;padding-top:0;color:#747d6c}.preview-meta{gap:10px;line-height:1.7}.preview-meta>span:last-child{white-space:nowrap}
 .sheet-footer{height:5mm;padding:0;border:0;align-items:center;letter-spacing:0}.sheet-brand{position:absolute;left:0;bottom:6mm;font-size:8px;white-space:nowrap}.practice-record{margin-left:auto;display:flex;flex-direction:row;justify-content:flex-end;align-items:baseline;gap:4mm;height:auto;color:#56624f;font-size:10px;line-height:1.4;font-variant-numeric:tabular-nums;white-space:nowrap}.practice-record>span{display:inline-flex;align-items:baseline;white-space:pre}.practice-record i{display:inline-block;width:8mm;border-bottom:1px solid #9ca592}.practice-record i.record-date{width:24mm}.practice-record strong{font-weight:500}.record-page{font-size:9px;color:#747d6c}.question{padding-top:0}.spacing-presets{margin-top:10px}
 .brand-mark.scholar-mark{width:48px;height:48px;background:transparent;border-radius:50%;overflow:hidden;flex-shrink:0}.scholar-mark img{display:block;width:100%;height:100%;object-fit:contain}
+.sheet-footer>.record-page{flex-shrink:0;white-space:nowrap;margin-right:4mm}
+.text-editor{margin-top:14px;padding:12px;border:1px solid #e2e6dc;border-radius:7px;background:#fafbf7}.text-editor-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;font-size:12px}.text-editor .text-button{font-size:10px;white-space:nowrap}.sheet-kicker>span:first-child{font-size:8px;letter-spacing:2px}.sheet-brand{max-width:100%;white-space:pre}.sheet-heading h2{white-space:pre}.sheet-description>span{white-space:pre}
+/* Compact editor chrome; physical worksheet sizing remains independent. */
+@media screen {
+  .app-header{height:68px;padding-inline:max(24px,calc((100vw - 1344px)/2))}
+  .workspace{max-width:1392px;padding:0 24px}
+  .intro{padding:20px 0;gap:16px}
+  .intro h1{font-size:22px;letter-spacing:.4px;margin:0 0 6px}
+  .intro p{font-size:12px}
+  .intro-note{display:flex;align-items:center;gap:7px;font-size:11px;color:#8a9b80;white-space:nowrap}
+  .editor-layout{grid-template-columns:310px minmax(0,1fr);gap:24px}
+  .settings{position:fixed;top:80px;bottom:auto;left:max(24px,calc((100vw - 1344px)/2));width:310px;display:flex;flex-direction:column;height:auto;max-height:calc(100dvh - 92px);min-height:0}
+  .panel-title{padding:11px 16px;flex-shrink:0}
+  .settings-scroll{display:flex;flex-direction:column;flex:0 1 auto;overflow:hidden;min-height:0}
+  .settings-group{display:flex;flex-direction:column;flex:0 0 auto;min-height:0;border-bottom:1px solid #edf0e9}
+  .settings-group.is-open{flex:0 1 auto;overflow:hidden}
+  .settings-group:last-child{border-bottom:0}
+  .settings-group h3{flex-shrink:0;margin:0;font-size:12px;font-weight:600}
+  .group-toggle{display:flex;align-items:center;gap:8px;width:100%;padding:10px 14px;border:0;background:white;text-align:left;color:#354d3d}
+  .group-toggle:focus-visible{outline-offset:-3px}
+  .group-heading{flex:1;min-width:0;display:flex;flex-direction:column;gap:1px}
+  .group-heading small{font-size:10px;font-weight:400;color:#8a9881;line-height:1.3;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+  .group-toggle>svg{flex-shrink:0;color:#84937a;transition:transform .2s}
+  .is-open>.group-content{border-top:1px solid #f0f3eb}
+  .is-open>h3 .group-toggle{background:#f7faf4}
+  .is-open>h3 .group-toggle>svg{transform:rotate(180deg)}
+  .group-content{flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#c6d2be transparent;scrollbar-gutter:stable;padding:2px 14px 14px}
+  .group-content[hidden]{display:none}
+  .group-content .field-label{margin:12px 0 7px}
+  .group-content input:not([type=range]){padding:8px 10px}
+  .group-content .input-unit input{padding-right:45px}
+  .group-content .input-unit>span{top:9px}
+  .group-content .operation{padding:8px;font-size:11px}
+  .group-content .operation-symbol{font-size:13px;min-width:23px}
+  .group-content .operation-grid{gap:6px}
+  .group-content .range-presets{margin-bottom:7px}
+  .group-content .answer-setting{margin-top:14px}
+  .group-content .toggle{flex-shrink:0}
+  .inline-field{display:flex;align-items:center;justify-content:space-between;gap:16px;margin:16px 0;font-size:12px;color:#44574b}
+  .inline-field select{width:115px}
+  .text-editor{padding:10px;margin-top:12px}
+  .generate-area{flex-shrink:0;padding:13px 16px;background:#fff;border-top:1px solid #dde5d7;box-shadow:0 -4px 12px #293c3505}
+  .action-buttons{display:grid;grid-template-columns:minmax(0,1fr) 78px;gap:8px}
+  .action-buttons .button{padding:11px 7px;font-size:12px;white-space:nowrap}
+  .generate svg:first-child,.generate svg:last-child{margin:0}
+  .generate-area>p{margin:8px 0 0;line-height:1.5}
+  .generate-area .pending-note{color:#65824d}
+  .preview-section{grid-column:2}
+  .app-header{position:sticky;top:0;z-index:10;margin-left:0;height:68px;padding:0 max(24px,calc((100vw - 1344px)/2))}
+  .intro{margin-left:334px;padding:12px 0}
+  .intro h1{font-size:19px;margin-bottom:4px}
+  .intro-note{display:none}
+  .preview-toolbar{padding:10px 14px;background:#fff;border:1px solid #e2e6dd;border-radius:8px}
+  .preview-meta{padding:12px 3px}
+  .preview-help{padding-top:16px}
+  .app-footer{padding:18px 0;margin-top:24px;margin-left:334px}
+}
+@media screen and (max-width:1000px){
+  .editor-layout{grid-template-columns:285px minmax(0,1fr);gap:18px}
+  .settings{left:18px;width:285px}
+  .app-header{margin-left:0;padding-inline:18px}
+  .intro,.app-footer{margin-left:303px}
+  .workspace{padding:0 18px}
+  .preview-toolbar{padding:12px}
+  .intro-note{display:none}
+}
+@media screen and (max-width:720px){
+  .workspace{padding:0 12px}
+  .app-header{height:56px;padding:0 14px;margin-left:0}
+  .brand{font-size:19px}
+  .brand-mark.scholar-mark{width:42px;height:42px}
+  .intro{padding:12px 2px;margin-left:0}
+  .intro h1{font-size:19px}
+  .intro p{font-size:11px}
+  .editor-layout{grid-template-columns:1fr;gap:18px}
+  .settings{position:relative;top:auto;bottom:auto;left:auto;width:100%;height:auto;max-height:calc(100dvh - 80px);display:flex}
+  .panel-title{padding:10px 14px}
+  .preview-section{grid-column:1}
+  .group-content .operation-grid{grid-template-columns:1fr 1fr}
+  .group-content .operation.wide{grid-column:span 2}
+  .group-content .range-presets{grid-template-columns:repeat(4,1fr)}
+  .group-content .operation{font-size:12px}
+  .preview-toolbar h2{font-size:13px}
+  .app-footer{flex-wrap:wrap;gap:6px;margin-left:0}
+}
+/* Native selects retain keyboard navigation and mobile system pickers. */
+select{
+  appearance:none;
+  -webkit-appearance:none;
+  min-height:38px;
+  padding:8px 36px 8px 12px;
+  border:1px solid #cfdccd;
+  border-radius:8px;
+  background-color:#fbfdf9;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='none' viewBox='0 0 16 16'%3E%3Cpath d='m4.5 6 3.5 3.5L11.5 6' stroke='%235f7d59' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat:no-repeat;
+  background-position:right 11px center;
+  color:#304c3a;
+  font-size:12px;
+  font-weight:500;
+  line-height:1.5;
+  cursor:pointer;
+  box-shadow:0 1px 2px #263c2c05;
+  transition:border-color .15s,box-shadow .15s,background-color .15s;
+}
+select:hover:not(:disabled){background-color:#f2f7ed;border-color:#8eaa84}
+select:focus{border-color:#65875b;background-color:#fff;box-shadow:0 0 0 3px #65875b20;outline:none}
+select:focus-visible{outline:2px solid #65875b;outline-offset:2px}
+select:disabled{opacity:.55;cursor:not-allowed;box-shadow:none}
+select option{background:#fff;color:#304c3a;font-weight:400}
+select option:checked{background:#e9f2e4;color:#245c48;font-weight:600}
+@media(forced-colors:active){select{appearance:auto;background-image:none}}
 @page{size:A4 portrait;margin:0}
 @media print{
   html,body,#root{margin:0!important;padding:0!important;background:white!important;width:210mm!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
