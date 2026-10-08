@@ -32,6 +32,7 @@ export default function App() {
   const [terms, setTerms] = useState(2)
   const [columns, setColumns] = useState(3)
   const [fontSize, setFontSize] = useState(24)
+  const [rowGap, setRowGap] = useState(3)
   const [showAnswer, setShowAnswer] = useState(false)
   const [showHeader, setShowHeader] = useState(false)
   const [showFooter, setShowFooter] = useState(false)
@@ -43,7 +44,7 @@ export default function App() {
   const [notice, setNotice] = useState('已为你准备好一份练习，开始吧。')
   const [zoom, setZoom] = useState(1)
   const preview = useRef<HTMLDivElement>(null)
-  const layout = getLayout(fontSize, columns, showHeader)
+  const layout = getLayout(fontSize, columns, showHeader, rowGap)
   const pages = Array.from({ length: Math.ceil(questions.length / layout.perPage) }, (_, index) => questions.slice(index * layout.perPage, (index + 1) * layout.perPage))
   const activeLabel = operations.find(op => op.id === activeConfig.operation)!.label
   const requestedCount = countMode === 'pages' ? Number(pageCount) * layout.perPage : Number(count)
@@ -113,6 +114,11 @@ export default function App() {
             <div className="range-labels"><span>12 px</span><span>逐级调节</span><span>64 px</span></div>
             <div className="font-presets">{[12, 16, 20, 24, 28, 32, 40, 48, 56, 64].map(value => <button key={value} aria-label={`字号 ${value} px`} aria-pressed={fontSize === value} className={`chip ${fontSize === value ? 'selected' : ''}`} onClick={() => setFontSize(value)}>{value}</button>)}</div>
             {[{ id: 'header', label: '显示页眉', hint: '标题、姓名与练习说明', value: showHeader, set: setShowHeader }, { id: 'footer', label: '显示页脚', hint: '品牌文案；页码始终保留', value: showFooter, set: setShowFooter }, { id: 'numbers', label: '显示序号', hint: '为题目添加连续编号', value: showNumbers, set: setShowNumbers }].map(item => <div className="answer-setting" key={item.id}><div><label htmlFor={item.id}>{item.label}</label><p>{item.hint}</p></div><button id={item.id} role="switch" aria-checked={item.value} aria-label={item.label} className={`toggle ${item.value ? 'on' : ''}`} onClick={() => item.set(!item.value)}><span /></button></div>)}
+            <label className="field-label" htmlFor="row-gap">行间距 <span>{rowGap} mm</span></label>
+            <input id="row-gap" className="font-range" type="range" min="3" max="16" step="0.5" value={rowGap} onChange={e => setRowGap(Number(e.target.value))} />
+            <div className="range-labels"><span>紧凑 3 mm</span><span>宽松 16 mm</span></div>
+            <div className="segments spacing-presets">{[{ value: 3, label: '紧凑' }, { value: 6, label: '标准' }, { value: 10, label: '宽松' }, { value: 16, label: '留白' }].map(option => <button key={option.value} aria-pressed={rowGap === option.value} className={rowGap === option.value ? 'active' : ''} onClick={() => setRowGap(option.value)}>{option.label}</button>)}</div>
+            <p className="setting-hint">调整题目行之间的留白，当前每页 {layout.perPage} 题。铺满模式自动同步题数。</p>
             <div className="answer-setting"><div><label htmlFor="answers">显示答案</label><p>适合核对与讲解</p></div><button id="answers" role="switch" aria-checked={showAnswer} aria-label="显示答案" className={`toggle ${showAnswer ? 'on' : ''}`} onClick={() => setShowAnswer(!showAnswer)}><span /></button></div>
           </section>
           <div className="generate-area">{error && <p role="alert" className="error">{error}</p>}<button className="button button-primary generate" onClick={generate}><RefreshCw size={17} />生成新题目<ArrowRight size={17} /></button><p>非负整数 · 除法整除 · 优先避免重复</p></div>
@@ -129,9 +135,11 @@ export default function App() {
                 <footer className={`sheet-footer ${showFooter ? '' : 'minimal-footer'}`}>
                   {showFooter && <span className="sheet-brand">小算纸 <span className="footer-dot">·</span> 让练习，刚刚好</span>}
                   <div className="practice-record" aria-label="本页练习记录">
-                    <div className="record-row"><span>日期：<i className="record-date" /></span><span>用时：<i /> 分钟</span></div>
-                    <div className="record-row"><span>错误个数 / 总个数：<i /> / <strong>{page.length}</strong> 题</span><span>修正用时：<i /> 分钟</span></div>
-                    <div className="record-page">第 {pageIndex + 1} / {pages.length} 页</div>
+                    <span>日期：<i className="record-date" /></span>
+                    <span>用时：<i /> 分钟</span>
+                    <span>订正：<i /> / <strong>{page.length}</strong> 题</span>
+                    <span>修正用时：<i /> 分钟</span>
+                    <span className="record-page">第 {pageIndex + 1} / {pages.length} 页</span>
                   </div>
                 </footer>
               </article>

@@ -103,10 +103,10 @@ export function generateQuestions(config: GenerationConfig): Question[] {
   return result
 }
 
-export function getLayout(fontSize: number, columns: number, showHeader = false) {
-  // Questions end by 270 mm; reserve the bottom-right record block below them.
-  const availableHeight = showHeader ? 215 : 260
-  const rowHeight = Math.max(9, fontSize * 0.264583 * 1.8)
+export function getLayout(fontSize: number, columns: number, showHeader = false, rowGap = 3) {
+  // End questions by 280 mm, before the single-line record at 284 mm.
+  const availableHeight = showHeader ? 225 : 270
+  const rowHeight = fontSize * 0.264583 * 1.3 + rowGap
   const rows = Math.floor(availableHeight / rowHeight)
   return { rowHeight, rows, availableHeight, perPage: rows * columns }
 }

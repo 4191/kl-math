@@ -33,12 +33,16 @@ test('page rows fit the reserved A4 question area at every setting', () => {
   for (let size = 12; size <= 64; size++) {
     for (let columns = 1; columns <= 5; columns++) {
       for (const header of [false, true]) {
-        const layout = getLayout(size, columns, header)
+        for (let gap = 3; gap <= 16; gap += 0.5) {
+        const layout = getLayout(size, columns, header, gap)
         assert(layout.rows * layout.rowHeight <= layout.availableHeight)
         assert.equal(layout.perPage, layout.rows * columns)
         assert(layout.perPage > 0)
-        // Reserve 3 mm before the record block, which starts at 273 mm.
-        assert(10 + (header ? 45 : 0) + layout.rows * layout.rowHeight <= 270)
+        assert(layout.rowHeight >= size * 0.264583 * 1.3 + gap)
+        assert(layout.perPage * 10 <= 2000)
+        // Leave 4 mm before the single-line record, which starts at 284 mm.
+        assert(10 + (header ? 45 : 0) + layout.rows * layout.rowHeight <= 280)
+        }
       }
     }
   }
@@ -71,6 +75,7 @@ test('fill mode can generate ten dense pages and gains space without header', ()
   const dense = getLayout(12, 5)
   assert(dense.perPage > getLayout(12, 5, true).perPage)
   assert(getLayout(24, 3).perPage > 45)
+  assert(getLayout(24, 3, false, 3).perPage > getLayout(24, 3, false, 16).perPage)
   const questions = generateQuestions({ range: 100, count: dense.perPage * 10, operation: 'addsub', terms: 5 })
   assert.equal(questions.length, dense.perPage * 10)
 })
